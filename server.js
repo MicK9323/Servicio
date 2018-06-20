@@ -37,12 +37,10 @@ router.route('/usuarios')
     usuario.save(function(error, result){
         if(error){
             res.status(500).json({
-                success: false,
                 mensaje: 'Error interno en el servidor'
             });
         }else{
             res.status(200).json({
-                success: true,
                 mensaje: 'Nuevo usuario registrado'
             });
         }
@@ -59,18 +57,13 @@ router.route('/usuarios/login')
     Usuario.findOne({email: usuario.email, clave: usuario.clave}, function(error, result){
         if(error){
             res.status(500).json({
-                success: false,
                 mensaje: 'Error interno en el servidor'
             });
         }else{
-            if(result != null){
-                res.status(200).json({
-                    success: true,
-                    usuario: result,
-                });
+            if(result){
+                res.status(200).json({result});
             }else{
                 res.status(500).json({
-                    success: false,
                     mensaje: 'Credenciales incorrectas'
                 });
             }
